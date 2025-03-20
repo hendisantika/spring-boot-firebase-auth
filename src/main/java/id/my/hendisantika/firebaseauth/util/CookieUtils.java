@@ -54,4 +54,10 @@ public class CookieUtils {
         cookie.setMaxAge(expiresInSeconds);
         httpServletResponse.addCookie(cookie);
     }
+
+    public void setSecureCookie(String name, String value) {
+        int expiresInMinutes = restSecProps.getCookieProps().getMaxAgeInMinutes();
+        setSecureCookie(name, value, expiresInMinutes);
+    }
+
 }
