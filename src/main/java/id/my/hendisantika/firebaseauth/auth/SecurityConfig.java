@@ -1,8 +1,8 @@
 package id.my.hendisantika.firebaseauth.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import id.my.hendisantika.firebaseauth.model.SecurityProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

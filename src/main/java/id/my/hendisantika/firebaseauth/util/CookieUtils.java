@@ -12,11 +12,11 @@ package id.my.hendisantika.firebaseauth.util;
  * To change this template use File | Settings | File Templates.
  */
 
+import id.my.hendisantika.firebaseauth.model.SecurityProperties;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 

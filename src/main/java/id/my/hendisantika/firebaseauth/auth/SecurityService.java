@@ -1,9 +1,11 @@
 package id.my.hendisantika.firebaseauth.auth;
 
+import id.my.hendisantika.firebaseauth.model.Credentials;
+import id.my.hendisantika.firebaseauth.model.SecurityProperties;
+import id.my.hendisantika.firebaseauth.model.User;
 import id.my.hendisantika.firebaseauth.util.CookieUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
