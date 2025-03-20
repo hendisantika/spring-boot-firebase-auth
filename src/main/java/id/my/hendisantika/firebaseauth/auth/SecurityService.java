@@ -38,4 +38,9 @@ public class SecurityService {
         }
         return userPrincipal;
     }
+
+    public Credentials getCredentials() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return (Credentials) securityContext.getAuthentication().getCredentials();
+    }
 }
