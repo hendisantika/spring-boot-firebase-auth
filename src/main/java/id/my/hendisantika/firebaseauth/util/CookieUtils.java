@@ -43,4 +43,15 @@ public class CookieUtils {
         cookie.setMaxAge(expiresInSeconds);
         httpServletResponse.addCookie(cookie);
     }
+
+    public void setSecureCookie(String name, String value, int expiryInMinutes) {
+        int expiresInSeconds = expiryInMinutes * 60 * 60;
+        Cookie cookie = new Cookie(name, value);
+        cookie.setHttpOnly(restSecProps.getCookieProps().isHttpOnly());
+        cookie.setSecure(restSecProps.getCookieProps().isSecure());
+        cookie.setPath(restSecProps.getCookieProps().getPath());
+        cookie.setDomain(restSecProps.getCookieProps().getDomain());
+        cookie.setMaxAge(expiresInSeconds);
+        httpServletResponse.addCookie(cookie);
+    }
 }
