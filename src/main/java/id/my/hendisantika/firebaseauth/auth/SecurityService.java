@@ -43,4 +43,8 @@ public class SecurityService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return (Credentials) securityContext.getAuthentication().getCredentials();
     }
+
+    public boolean isPublic() {
+        return securityProps.getAllowedPublicApis().contains(httpServletRequest.getRequestURI());
+    }
 }
