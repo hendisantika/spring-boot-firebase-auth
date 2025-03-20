@@ -83,4 +83,18 @@ public class SecurityFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
     }
+
+    private User firebaseTokenToUserDto(FirebaseToken decodedToken) {
+        User user = null;
+        if (decodedToken != null) {
+            user = new User();
+            user.setUid(decodedToken.getUid());
+            user.setName(decodedToken.getName());
+            user.setEmail(decodedToken.getEmail());
+            user.setPicture(decodedToken.getPicture());
+            user.setIssuer(decodedToken.getIssuer());
+            user.setEmailVerified(decodedToken.isEmailVerified());
+        }
+        return user;
+    }
 }
