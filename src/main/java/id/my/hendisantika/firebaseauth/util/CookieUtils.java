@@ -12,11 +12,13 @@ package id.my.hendisantika.firebaseauth.util;
  * To change this template use File | Settings | File Templates.
  */
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +29,9 @@ public class CookieUtils {
     private final HttpServletResponse httpServletResponse;
 
     private final SecurityProperties restSecProps;
+
+    public Cookie getCookie(String name) {
+        return WebUtils.getCookie(httpServletRequest, name);
+    }
 
 }
