@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -49,5 +52,18 @@ public class SecurityConfig {
             httpServletResponse.setStatus(errorCode);
             httpServletResponse.getWriter().write(objectMapper.writeValueAsString(errorObject));
         };
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(restSecProps.getAllowedOrigins());
+        configuration.setAllowedMethods(restSecProps.getAllowedMethods());
+        configuration.setAllowedHeaders(restSecProps.getAllowedHeaders());
+        configuration.setAllowCredentials(restSecProps.isAllowCredentials());
+        configuration.setExposedHeaders(restSecProps.getExposedHeaders());
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
