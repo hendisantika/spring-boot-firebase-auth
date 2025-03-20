@@ -70,4 +70,13 @@ public class CookieUtils {
         cookie.setMaxAge(expiresInSeconds);
         httpServletResponse.addCookie(cookie);
     }
+
+    public void deleteCookie(String name) {
+        int expiresInSeconds = 0;
+        Cookie cookie = new Cookie(name, null);
+        cookie.setPath(restSecProps.getCookieProps().getPath());
+        cookie.setDomain(restSecProps.getCookieProps().getDomain());
+        cookie.setMaxAge(expiresInSeconds);
+        httpServletResponse.addCookie(cookie);
+    }
 }
