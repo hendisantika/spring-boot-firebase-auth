@@ -60,4 +60,14 @@ public class CookieUtils {
         setSecureCookie(name, value, expiresInMinutes);
     }
 
+    public void deleteSecureCookie(String name) {
+        int expiresInSeconds = 0;
+        Cookie cookie = new Cookie(name, null);
+        cookie.setHttpOnly(restSecProps.getCookieProps().isHttpOnly());
+        cookie.setSecure(restSecProps.getCookieProps().isSecure());
+        cookie.setPath(restSecProps.getCookieProps().getPath());
+        cookie.setDomain(restSecProps.getCookieProps().getDomain());
+        cookie.setMaxAge(expiresInSeconds);
+        httpServletResponse.addCookie(cookie);
+    }
 }
