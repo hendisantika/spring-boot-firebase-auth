@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,5 +47,14 @@ public class SecurityService {
 
     public boolean isPublic() {
         return securityProps.getAllowedPublicApis().contains(httpServletRequest.getRequestURI());
+    }
+
+    public String getBearerToken(HttpServletRequest request) {
+        String bearerToken = null;
+        String authorization = request.getHeader("Authorization");
+        if (StringUtils.hasText(authorization) && authorization.startsWith("Bearer ")) {
+            bearerToken = authorization.substring(7);
+        }
+        return bearerToken;
     }
 }
