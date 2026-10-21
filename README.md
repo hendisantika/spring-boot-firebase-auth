@@ -1,5 +1,9 @@
 # Spring Boot Firebase Authentication
 
+[![Java CI with Maven](https://github.com/hendisantika/spring-boot-firebase-auth/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/spring-boot-firebase-auth/actions/workflows/maven.yml)
+![Java](https://img.shields.io/badge/Java-25-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.1-brightgreen)
+
 A comprehensive Spring Boot application demonstrating secure user authentication and authorization using Firebase Auth
 with session-based security.
 
@@ -15,20 +19,21 @@ with session-based security.
 
 ## 🛠️ Technology Stack
 
-- **Java 21** - Latest LTS version
-- **Spring Boot 3.4.4** - Main framework
+- **Java 25** - Latest LTS version
+- **Spring Boot 4.1.1** - Main framework
+- **Jackson 3** - JSON serialization (Spring Boot 4 default)
 - **Spring Security** - Authentication & authorization
 - **Spring Data JPA** - Database operations
-- **Firebase Admin SDK 9.4.3** - Firebase integration
+- **Firebase Admin SDK 9.11.0** - Firebase integration
 - **H2 Database** - In-memory database (development)
 - **MySQL** - Production database support
-- **Maven** - Build tool
+- **Maven 3.10 (wrapper)** - Build tool
 - **Lombok** - Code generation
 
 ## 📋 Prerequisites
 
-- Java 21 or higher
-- Maven 3.6+
+- Java 25 or higher
+- Maven 3.10+ (or use the bundled `./mvnw` wrapper)
 - Firebase project with Authentication enabled
 - Firebase service account key
 
@@ -42,6 +47,9 @@ with session-based security.
     - Go to Project Settings → Service Accounts
     - Generate new private key
     - Save as `src/main/resources/notifikasi-270506-firebase-adminsdk-*.json`
+
+> ⚠️ The service account key is a secret. Never commit it to Git. If the key file is missing (for example in CI),
+> the application still starts but skips Firebase initialization and logs a warning.
 
 ### 2. Application Configuration
 
@@ -81,14 +89,14 @@ git clone <repository-url>
 cd spring-boot-firebase-auth
 
 # Run the application
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 ### Using JAR
 
 ```bash
 # Build the application
-mvn clean package
+./mvnw clean package
 
 # Run the JAR
 java -jar target/firebase-auth-0.0.1-SNAPSHOT.jar
@@ -160,7 +168,7 @@ src/
 │   │   └── SpringBootFirebaseAuthApplication.java
 │   └── resources/
 │       ├── application.yml    # Configuration
-│       └── firebase-key.json  # Firebase service account
+│       └── notifikasi-*-firebase-adminsdk-*.json  # Firebase service account (not committed)
 ├── test/
 └── index.html                 # Sample frontend
 ```
@@ -183,14 +191,25 @@ src/
 ### Testing
 
 ```bash
-mvn test
+./mvnw test
 ```
 
 ### Building
 
 ```bash
-mvn clean package
+./mvnw clean package
 ```
+
+## ⚙️ CI/CD & Dependency Management
+
+- **GitHub Actions** (`.github/workflows/maven.yml`): builds and tests every push and pull request to `main` on
+  Temurin JDK 25, then submits the Maven dependency graph for better Dependabot alerts.
+- **Dependabot** (`.github/dependabot.yml`):
+    - **Maven** (daily, 05:00 Asia/Jakarta): updates `pom.xml` and the Maven wrapper, with grouped PRs for Spring,
+      Firebase, Maven plugins and other minor/patch updates.
+    - **GitHub Actions** (weekly, Monday): all action bumps grouped into a single PR.
+    - Commit messages follow Conventional Commits (`build(deps): ...`, `ci(deps): ...`) and PRs are labelled
+      automatically.
 
 ## 📱 Frontend Usage
 
@@ -208,7 +227,7 @@ mvn clean package
 ## 🐳 Docker Support
 
 ```dockerfile
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:25-jre
 COPY target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
